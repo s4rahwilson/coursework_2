@@ -11,8 +11,6 @@ pipeline {
         }
 
         stage('Sonarqube') {
-            echo 'sonar'
-            script {
                 environment {
                     scannerHome = tool 'SonarQube'
                 }
