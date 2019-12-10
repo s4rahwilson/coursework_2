@@ -14,16 +14,7 @@ node {
 
         app = docker.build("s4rahwilson/coursework_2")
     }
-
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
-    }
-    
+ 
     stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQubeScanner'
