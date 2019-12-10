@@ -10,6 +10,8 @@ node {
     }
  
     stage('Sonarqube') {
+        echo 'sonar'
+        script {
     environment {
         scannerHome = tool 'SonarQube'
     }
@@ -21,6 +23,7 @@ node {
             waitForQualityGate abortPipeline: true
         }
     }
+      }
 }
 
     stage('Push image') {
