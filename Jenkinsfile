@@ -20,12 +20,13 @@ stage('Sonarqube') {
     }
     steps {
         withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
+            sh "${/var/jenkins_home/sonarqube/sonar-scanner-3.3.0.1492-linux/}/bin/sonar-scanner"
         }
         timeout(time: 10, unit: 'MINUTES') {
             waitForQualityGate abortPipeline: true
         }
     }
+}
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags:
