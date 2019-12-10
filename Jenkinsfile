@@ -1,6 +1,5 @@
 #!groovy
 pipeline {
-    def app
     stage('Clone repository') {
         checkout scm
     }
