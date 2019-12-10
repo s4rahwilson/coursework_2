@@ -14,7 +14,7 @@ node {
         app = docker.build("s4rahwilson/coursework_2")
     }
  
-    stage('Sonarqube') {
+stage('Sonarqube') {
     environment {
         scannerHome = tool 'SonarQube'
     }
