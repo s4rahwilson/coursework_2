@@ -1,19 +1,6 @@
 node {
     def app
-    
-    stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'SonarQubeScanner'
-    }
-    steps {
-        withSonarQubeEnv('sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-    }
-}
+    =
 
     stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
@@ -36,6 +23,20 @@ node {
             sh 'echo "Tests passed"'
         }
     }
+    
+    stage('Sonarqube') {
+    environment {
+        scannerHome = tool 'SonarQubeScanner'
+    }
+    steps {
+        withSonarQubeEnv('sonarqube') {
+            sh "${scannerHome}/bin/sonar-scanner"
+        }
+        timeout(time: 10, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: true
+        }
+    }
+}
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags:
