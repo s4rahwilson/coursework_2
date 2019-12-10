@@ -1,3 +1,4 @@
+#!groovy
 pipeline {
     def app
     stage('Clone repository') {
