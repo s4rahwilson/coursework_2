@@ -14,23 +14,23 @@ pipeline {
             }
         }
 	stage('Sonarqube') {
-	    environment {
+		environment {
 		scannerHome = tool 'SonarQubeScanner'
-	    }
-	    steps {
+		}
+		steps {
 		withSonarQubeEnv('sonarqube') {
-		    sh "${scannerHome}/bin/sonar-scanner"
+			sh "${scannerHome}/bin/sonar-scanner"
 		}
-		timeout(time: 10, unit: 'MINUTES') {
-		    waitForQualityGate abortPipeline: true
-		}
-    	}
-}
+			timeout(time: 10, unit: 'MINUTES') {
+				waitForQualityGate abortPipeline: true
+			}
+		 }
+	  }
         stage('Push image') {
             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                 app.push("${env.BUILD_NUMBER}")
                 app.push("latest")
             }
         }
-	}
+    }
 }
