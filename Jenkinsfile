@@ -9,11 +9,12 @@ node {
         app = docker.build("s4rahwilson/coursework-2")
     }
 
-    stage('Test image') {
-        app.inside {
-            sh 'echo "Tests passed"'
-        }
+    stage('SonarQube analysis') {
+    def scannerHome = tool 'SonarQube';
+    withSonarQubeEnv('SonarQube') {
+      sh "${scannerHome}/bin/sonar-scanner"
     }
+  }
 
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
