@@ -1,5 +1,11 @@
 node {
     def app
+        def remote = [:]
+        remote.name = 'vm'
+        remote.host = '13.92.156.111'
+        remote.user = 'azureuser'
+        remote.password = 'password345'
+        remote.allowAnyHosts = true
 
     stage('Clone repository') {
         checkout scm
@@ -22,4 +28,8 @@ node {
             app.push("latest")
         }
     }
+
+    stage('Remote SSH') {
+     sshCommand remote: remote, command: "ls"
+   }
 }
